@@ -2,6 +2,7 @@
 - name: Display host variables
   hosts: web
   gather_facts: no
+  
   tasks:
   - name: Role of {{ inventory_hostname}}
     debug:

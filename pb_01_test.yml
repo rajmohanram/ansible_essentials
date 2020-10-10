@@ -2,6 +2,7 @@
 - name: Demo debug module
   gather_facts: no
   hosts: web
+  
   tasks:
     - name: Display a message
       debug:

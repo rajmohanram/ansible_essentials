@@ -29,6 +29,7 @@
     module-Y:
       arg1: argument-1
       arg2: argument-2
+      
 - name: Play-2
   hosts: Set of hosts Play-2 is meant to handle
   tasks:

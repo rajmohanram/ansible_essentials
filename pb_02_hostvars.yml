@@ -6,7 +6,7 @@
   tasks:
   - name: Host variables of {{ inventory_hostname}}
     debug:
-      var: hostvars.{{ inventory_hostname}}
+      var: hostvars.{{ inventory_hostname}}.web_pkg
  
 
 # hostvars - Variables of all hosts scoped in the play

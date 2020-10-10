@@ -5,3 +5,6 @@
   
   roles:
     - role: geerlingguy.nginx
+
+
+# $ ansible-galaxy install geerlingguy.nginx

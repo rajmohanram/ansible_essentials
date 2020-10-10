@@ -7,8 +7,8 @@
     - name: Start / Stop crond service
       service:
         name: crond
-        state: started
-        # state: stopped
+        # state: started
+        state: stopped
 
     - name: Get status of crond service
       command:

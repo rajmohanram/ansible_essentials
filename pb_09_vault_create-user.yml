@@ -25,7 +25,7 @@
 
 # include variables defined in a file - vars_files
 # Access variables defined in the vault file
-# python3 -c 'import crypt; print(crypt.crypt("password123", "$1$SomeSalt$"))'
+# python3 -c 'import crypt; print(crypt.crypt("operator1", "$1$SomeSalt$"))'
 
 # ansible-vault create secret.yml
 #   vault-password

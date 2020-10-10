@@ -7,7 +7,7 @@
   tasks:
   - name: Print facts about {{ inventory_hostname }}
     debug:
-      var: ansible_facts
+      var: ansible_facts.fqdn
 
 
 # gather_facts - enabled by default, even if it is not called in playbook

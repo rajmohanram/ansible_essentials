@@ -1,9 +1,0 @@
-127.0.0.1   localhost localhost.localdomain
-::1         localhost localhost.localdomain
-127.0.1.1   server-1.example.com server-1
-192.168.128.51 server-1.example.com server-1
-192.168.128.52 server-2.example.com server-2
-# BEGIN ANSIBLE MANAGED BLOCK
-192.168.128.53 server-3.example.com server-3
-192.168.128.54 server-4.example.com server-4
-# END ANSIBLE MANAGED BLOCK
