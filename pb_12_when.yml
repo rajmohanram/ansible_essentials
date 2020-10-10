@@ -1,0 +1,53 @@
+---
+- name: Demonstrate WHEN conditional
+  hosts: web
+  gather_facts: yes
+  vars:
+    rpm_distros:
+      - RedHat
+      - CentOS
+      - Fedora
+    deb_distros:
+      - Ubuntu
+      - Debian
+
+  tasks:
+    - name: Display Linux distribution from gathered facts
+      debug:
+        # var: ansible_facts
+        var: ansible_distribution
+
+    - name: Install & update RedHat family specific WEB package
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_distribution in rpm_distros
+
+    - name: Install & update RedHat family specific WEB package
+      apt:
+        name: apache2
+        state: latest
+      when: ansible_distribution in deb_distros
+
+
+
+# when - make the task conditional
+# - check something on declared / registered variables / discovered facts
+# The task is skipped if 'when' condition is not met
+# Operators for 'when'
+# x == y
+# x != y
+# x > y
+# x >= y
+# x < y
+# x <= y
+# x is y (failed, succeeded, defined, undefined)
+# x in y
+# x (Boolean True)
+# not x (Boolean False)
+# read string as integer
+# version | int 
+# combine multiple conditions with `and` or `or`
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
+
+

@@ -1,0 +1,40 @@
+---
+- name: Create an user
+  hosts: file
+  gather_facts: no
+  vars:
+    user: operator1
+    group: support
+  vars_files:
+    - secret.yml
+  tasks:
+  - name: Create group
+    group:
+      name: "{{ group }}"
+      state: present
+
+  - name: Creating user
+    user:
+      name: "{{ user }}"
+      password: "{{ password }}"
+      group: "{{ group }}"
+      shell: /bin/bash
+      create_home: yes
+      
+
+
+# include variables defined in a file - vars_files
+# Access variables defined in the vault file
+# python3 -c 'import crypt; print(crypt.crypt("password123", "$1$SomeSalt$"))'
+
+# ansible-vault create secret.yml
+#   vault-password
+#   add the required variables
+#   "{{ mypassword | password_hash('sha512') }}"
+
+# ansible-vault edit secret.yml
+# ansible-vault decrypt secret.yml
+# ansible-vault encrypt secret.yml
+
+
+# $ ansible-playbook pb_08_user.yml --tags="delete user"

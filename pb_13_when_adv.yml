@@ -1,23 +1,25 @@
 ---
 - name: Demonstrate WHEN conditional
-  hosts: lamp
+  hosts: file
   gather_facts: yes
-  vars:
-    supported_distros:
-      - RedHat
-      - CentOS
-      - Fedora
-  tasks:
-    - name: Display Linux distribution from gathered facts
-      debug:
-        # var: ansible_facts
-        var: ansible_distribution
 
-    - name: Install & update RedHat family specific WEB package
+  tasks:
+    - name: Display mount points from gathered facts
+      debug:
+        var: item.mount
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
+
+    - name: Install & update FTP package (if atlease 100MB is available at /)
       yum:
-        name: httpd
+        name: "{{ ftp.pkg }}"
         state: latest
-      when: ansible_distribution in supported_distros
+      when: item.mount == '/' and item.size_available > 100000000
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
+      
 
 
 
@@ -40,4 +42,3 @@
 # read string as integer
 # version | int 
 # combine multiple conditions with `and` or `or`
-# https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html

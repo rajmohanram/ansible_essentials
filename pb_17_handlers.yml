@@ -1,13 +1,13 @@
 ---
 - name: Setup Web server
-  hosts: lamp
+  hosts: web
   gather_facts: no
   ignore_errors: yes
 
   tasks:
     - name: Install httpd package
-      yum:
-        name: httpd
+      package:
+        name: "{{ web_pkg }}"
         state: latest
 
     - name: Copy index.html file
@@ -25,7 +25,7 @@
   handlers:
     - name: restart_web
       service:
-        name: httpd
+        name: "{{ web_svc }}"
         state: restarted
       
 

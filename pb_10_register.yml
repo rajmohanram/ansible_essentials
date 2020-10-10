@@ -1,7 +1,8 @@
 ---
-- name: Demonstrate failed_when
-  hosts: server-1
+- name: Demonstrate register and failed_when
+  hosts: web1
   gather_facts: no
+
   tasks:
     - name: Run a CLI command
       command: echo hello world
@@ -11,7 +12,7 @@
       debug:
         var: command_result
 
-    - name: Demonstrate 'failed_when'
+    - name: Simulate task failure
       debug:
         msg: FAILED
       ignore_errors: yes
@@ -21,7 +22,12 @@
       debug:
         msg: Task executed
 
+
 # register the output of tasks and examine it
-# ignore_errors
-# - if a task fail, subsequent tasks are not run
-# - ignore_erros --> to continue with other tasks
+
+# Playbook execution is terminated when a task fails
+# Subsequent tasks will not run
+
+# If further tasks are to be run even when the previous task fails
+# ignore_errors: yes
+

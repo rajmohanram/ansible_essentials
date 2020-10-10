@@ -1,14 +1,14 @@
 ---
 - name: Start multiple services
-  hosts: server-2
+  hosts: web1
   gather_facts: no
   vars:
     services_list:
-      - crond
       - sshd
+      - crond
     services_dict:
-      file: vsftpd
-      web: httpd
+      ssh: sshd
+      cron: crond
   
   tasks:
     - name: Check the LIST variable
@@ -36,9 +36,9 @@
         label: "{{ item.value }}" 
 
 
-# my_services
+# services_list
 # - variable - List of 2 services
 # - Loop through each item in the list
-# - item - internal variable representing each element in the list
+# - item - internal variable name representing each element in the list
 # - Start the service
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html

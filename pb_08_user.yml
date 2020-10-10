@@ -17,6 +17,7 @@
     user:
       name: "{{ user }}"
       group: "{{ group }}"
+      shell: /bin/bash
       create_home: yes
     tags: "create user"
 

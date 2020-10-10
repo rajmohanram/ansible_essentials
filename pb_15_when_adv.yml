@@ -1,6 +1,6 @@
 ---
 - name: Install Web package
-  hosts: lamp
+  hosts: web
   gather_facts: yes
 
   tasks:
@@ -12,11 +12,12 @@
 
     - name: Install web package
       package:
-        name: httpd
+        name: "{{ web_pkg }}"
         state: latest
       when:
-        - ansible_distribution == "CentOS"
-        - ansible_memfree_mb > 128
+        (ansible_distribution == "CentOS" and ansible_memfree_mb > 256)
+        or
+        (ansible_distribution == "Ubuntu" and ansible_memfree_mb > 256)
       
 
 # logical AND - if a list of conditions are specified
