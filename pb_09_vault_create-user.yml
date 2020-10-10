@@ -25,6 +25,8 @@
 
 # include variables defined in a file - vars_files
 # Access variables defined in the vault file
+
+# To create a password hash
 # python3 -c 'import crypt; print(crypt.crypt("operator1", "$1$SomeSalt$"))'
 
 # ansible-vault create secret.yml
@@ -36,5 +38,6 @@
 # ansible-vault decrypt secret.yml
 # ansible-vault encrypt secret.yml
 
+# ansible-playbook pb_09_vault_create-user.yml --ask-vault-pass
 
 # $ ansible-playbook pb_08_user.yml --tags="delete user"
