@@ -1,0 +1,33 @@
+---
+- name: Deploy vsftpd FTP server
+  gather_facts: no
+  hosts: file
+
+  tasks:
+  - name: Creating user for FTP access
+    user:
+      name: ftpuser
+      password: $1$SomeSalt$Mabm7JORLYoZUVe5er5Ss.
+      shell: /bin/bash
+      create_home: yes
+
+  - name: Install FTP package
+    yum:
+      name: "{{ ftp.pkg }}"
+
+  - name: Create FTP user list file
+    copy:
+      src: vsftpd_user_list
+      dest: "{{ vsftpd_userlist_file }}"
+  
+  - name: Create FTP configuration file
+    template:
+      src: vsftpd.j2
+      dest: "{{ vsftpd_config_file }}"
+
+  - name: Enable and start FTP service
+    service:
+      name: "{{ ftp.svc }}"
+      state: restarted
+      enabled: true
+

@@ -1,6 +1,6 @@
 ---
 - name: Create users
-  hosts: lamp
+  hosts: file
   gather_facts: no
   vars_files:
     - vars/groups.yml

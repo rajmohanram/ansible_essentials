@@ -39,3 +39,7 @@
 
 # the task calling the handler should have `changed' state so as to invoke the handler
 # all tasks in the play should have run successfully (or set ignore_erros)
+
+
+# configuration is changed, so restart the service
+# users added to DB, restart service

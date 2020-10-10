@@ -1,6 +1,6 @@
 127.0.0.1   localhost localhost.localdomain
 ::1         localhost localhost.localdomain
 127.0.1.1   {{ hostvars[inventory_hostname]['ansible_facts']['fqdn'] }} {{ hostvars[inventory_hostname]['ansible_facts']['hostname'] }}
-{% for host in groups['all'] %}
+{% for host in groups['web'] %}
 {{ hostvars[host]['ansible_facts']['default_ipv4']['address'] }} {{ hostvars[host]['ansible_facts']['fqdn'] }} {{ hostvars[host]['ansible_facts']['hostname'] }}
 {% endfor%}

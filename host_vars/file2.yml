@@ -4,3 +4,5 @@ smb_svc: smbd
 ftp:
   pkg: vsftpd
   svc: vsftpd
+vsftpd_config_file: /etc/vsftpd.conf
+vsftpd_userlist_file: /etc/vsftpd_allowed_user

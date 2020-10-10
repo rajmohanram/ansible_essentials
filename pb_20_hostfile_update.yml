@@ -1,6 +1,6 @@
 ---
 - name: Update /etc/hosts file
-  hosts: all
+  hosts: web
   gather_facts: no
 
   tasks:

@@ -1,0 +1,12 @@
+---
+  - name: Install Web package
+    package:
+      name: 
+        - "{{ web_pkg }}"
+      state: latest
+  
+  - name: Start Web server
+    service:
+      name: "{{ web_svc }}"
+      state: started
+      enabled: true

@@ -3,7 +3,7 @@
     yum:
       name: 
         - "{{ smb_pkg }}"
-        - "{{ ftp_pkg }}"
+        - "{{ ftp.pkg }}"
       state: latest
   
   - name: Start SMB server
@@ -14,6 +14,6 @@
 
   - name: Start FTP server
     service:
-      name: "{{ ftp_svc }}"
+      name: "{{ ftp.svc }}"
       state: started
       enabled: true
