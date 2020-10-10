@@ -1,0 +1,27 @@
+---
+- name: Remove Web package (conditionally)
+  hosts: lamp
+  gather_facts: yes
+
+  tasks:
+    - name: Display facts
+      debug:
+        msg:
+          - "{{ ansible_distribution }}"
+          - "{{ ansible_memfree_mb }}"
+
+    - name: Remove web package
+      package:
+        name: httpd
+        state: removed
+      when:
+        (ansible_distribution == "RedHat" and ansible_memfree_mb < 512)
+        or
+        (ansible_distribution == "CentOS" and ansible_memfree_mb < 512)
+        
+      
+
+
+# adhoc command to check facts
+# ansible lamp -m setup -a "filter=ansible_distribution"
+# ansible lamp -m setup -a "filter=ansible_memfree_mb"

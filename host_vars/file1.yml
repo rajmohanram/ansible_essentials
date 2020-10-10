@@ -1,0 +1,6 @@
+---
+smb_pkg: samba
+smb_svc: smb
+ftp:
+  pkg: vsftpd
+  svc: vsftpd

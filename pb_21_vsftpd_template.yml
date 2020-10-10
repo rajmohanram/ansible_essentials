@@ -1,0 +1,30 @@
+---
+- name: Configure FTP server
+  hosts: file
+  gather_facts: no
+  vars:
+    anonymous_enable: yes
+    local_enable: yes
+    write_enable: yes
+    anon_upload_enable: yes
+
+  tasks:
+    - name: Install FTP package
+      yum:
+        name: vsftpd
+        state: latest
+
+    - name: Copy FTP configuration file
+      template:
+        src: vsftpd.j2
+        dest: /etc/vsftpd/vsftpd.conf
+
+      
+
+
+# adhoc command to remove vsftpd
+# ansible file -m yum -a "name=vsftpd state=removed"
+
+
+# Template file (Jinja2) - defined with variables
+# Variable substitution happen during runtime

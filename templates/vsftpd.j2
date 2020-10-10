@@ -1,0 +1,32 @@
+# Allow anonymous FTP?
+anonymous_enable={{ anonymous_enable }}
+
+# To allow the anonymous FTP user to upload files.
+anon_upload_enable={{ anon_upload_enable }}
+
+# To allow local users to log in.
+local_enable={{ local_enable }}
+
+# To enable FTP write command.
+write_enable={{ write_enable }}
+
+# Activate directory messages - messages given to remote users when they
+# go into a certain directory.
+dirmessage_enable=YES
+
+# The target log file can be vsftpd_log_file or xferlog_file.
+xferlog_enable=YES
+
+# When "listen" directive is enabled, vsftpd runs in standalone mode and
+# listens on IPv4 sockets.
+listen=YES
+
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES
+
+# Customise the login banner string:
+ftpd_banner=Welcome to my FTP service.
+
+pam_service_name=vsftpd
+userlist_enable=YES
+

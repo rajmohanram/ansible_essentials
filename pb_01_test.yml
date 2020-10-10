@@ -1,0 +1,12 @@
+---
+- name: Demo debug module
+  gather_facts: no
+  hosts: web
+  tasks:
+    - name: Display a message
+      debug:
+        msg: This is a message from debug module.
+    
+    - name: Display a variable
+      debug:
+        var: hostvars.{{inventory_hostname}}

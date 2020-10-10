@@ -1,0 +1,21 @@
+---
+- name: Uninstall httpd
+  gather_facts: no
+  hosts: web
+
+  tasks:
+  - name: Stop the service
+    service:
+      name: "{{ web_svc }}"
+      state: stopped
+
+  - name: Remove index.html page
+    file:
+      path: /var/www/html/index.html
+      state: absent
+
+  - name: Remove the package
+    package:
+      name: "{{ web_pkg }}"
+      state: absent
+

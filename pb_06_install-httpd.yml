@@ -1,0 +1,43 @@
+---
+- name: Install, start and enable httpd
+  gather_facts: yes
+  hosts: web
+
+  tasks:
+  - name: Install httpd package
+    package:
+      name: "{{ web_pkg }}"
+      state: latest
+
+  - name: Create index.html page
+    copy:
+      content: "Welcome to my Web Server"
+      dest: /var/www/html/index.html
+
+  - name: Start and enable httpd service
+    service:
+      name: "{{ web_svc }}"
+      state: started
+      enabled: yes
+
+  - name: Stop firewalld service
+    systemd:
+      name: firewalld
+      state: stopped
+    when: ansible_distribution == 'CentOS'
+    tags: stop firewalld
+
+
+# choose the appropriate Modules to achieve the automation objective
+# sequence the tasks
+# Play control
+# - syntax check:
+#     $ ansible-playbook pb_06_install-httpd.yml --syntax-check
+# - tags
+#     Run only a specific task
+# - dry run
+#   - check mode
+#   - diff mode
+
+# $ ansible web1 -m shell -a "yum list installed | grep httpd"
+# $ ansible web2 -m shell -a "dpkg -l | grep apache2"

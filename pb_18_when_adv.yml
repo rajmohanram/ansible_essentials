@@ -1,0 +1,25 @@
+---
+- name: Install Web package
+  hosts: lamp
+  gather_facts: yes
+
+  tasks:
+    - name: Display facts
+      debug:
+        msg:
+          - "{{ ansible_distribution }}"
+          - "{{ ansible_memfree_mb }}"
+
+    - name: Install web package
+      package:
+        name: httpd
+        state: latest
+      when:
+        - ansible_distribution == "CentOS"
+        - ansible_memfree_mb > 128
+      
+
+# logical AND - if a list of conditions are specified
+# adhoc command to check facts
+# ansible lamp -m setup -a "filter=ansible_distribution"
+# ansible lamp -m setup -a "filter=ansible_memfree_mb"

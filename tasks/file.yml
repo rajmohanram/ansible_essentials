@@ -1,0 +1,19 @@
+---
+  - name: Install SMB & FTP packages
+    yum:
+      name: 
+        - "{{ smb_pkg }}"
+        - "{{ ftp_pkg }}"
+      state: latest
+  
+  - name: Start SMB server
+    service:
+      name: "{{ smb_svc }}"
+      state: started
+      enabled: true
+
+  - name: Start FTP server
+    service:
+      name: "{{ ftp_svc }}"
+      state: started
+      enabled: true

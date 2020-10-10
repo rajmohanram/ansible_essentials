@@ -1,0 +1,27 @@
+---
+- name: Show facts
+  hosts: web1
+  gather_facts: yes
+  gather_subset: min
+  
+  tasks:
+  - name: Print facts about {{ inventory_hostname }}
+    debug:
+      var: ansible_facts
+
+
+# gather_facts - enabled by default, even if it is not called in playbook
+# can be controlled by `gathering` in ansible.cfg
+# - implicit (default) : gather facts by default. Turn off is specified (no / False)
+# - explicit : Do not gather facts by default. Turn on if specified (yes / True)
+# - smart : Gather facts by default. Don't gather if already gathered
+
+# gather_subset
+# - all
+# - min
+# - hardware
+# - network
+# - virtual
+
+# fact caching - Default no caching; facts only available during playbook runtime
+# enable caching using plugins; any changes on remote hosts not available

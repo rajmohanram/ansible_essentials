@@ -1,0 +1,19 @@
+---
+- name: Update /etc/hosts file
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Update hosts file
+      template:
+        src: hosts.j2
+        dest: /etc/hosts
+
+      
+
+
+# adhoc command to check hosts file
+# ansible all -a "cat /etc/hosts"
+
+# Template file (Jinja2) - defined with variables
+# Variable substitution happen during runtime

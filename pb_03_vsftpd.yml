@@ -1,0 +1,26 @@
+---
+- name: Deploy vsftpd FTP server
+  hosts: file
+  tasks: 
+  - name: Install vsftpd
+    yum:
+      name: vsftpd
+  - name: Enable vsftpd
+    service:
+      name: vsftpd
+      state: started
+      enabled: true
+  - name: Create readme file
+    copy:
+      content: "Welcome to this FTP server\n"
+      dest: /var/ftp/pub/README
+      force: no
+      mode: 0444
+  - name: Open port on firewall
+    firewalld:
+      service: ftp
+      permanent: yes
+      state: enabled
+...
+# firewall is up (allow ports require for FTP server)
+# vsftpd not started

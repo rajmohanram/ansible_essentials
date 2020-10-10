@@ -1,0 +1,38 @@
+---
+- name: Update /etc/hosts file
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Update hosts file
+      blockinfile:
+        path: /etc/hosts
+        block: |
+          192.168.128.53 server-3.example.com server-3
+          192.168.128.54 server-4.example.com server-4
+        state: present
+    
+    - name: Verify file checksum
+      stat:
+        path: /etc/hosts
+        checksum_algorithm: md5
+      register: result
+
+    - name: Display checksum
+      debug:
+        # var: result
+        msg: The checksum of /etc/hosts file is {{ result.stat.checksum}}
+
+    - name: Fetch /etc/hosts file
+      fetch:
+        src: /etc/hosts
+        dest: files/
+
+      
+
+# adhoc command to check hosts file
+# ansible all -a "cat /etc/hosts"
+
+# Template file (Jinja2) - defined with variables
+# Variable substitution happen during runtime
+

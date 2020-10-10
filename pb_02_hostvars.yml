@@ -1,0 +1,19 @@
+---
+- name: Display host variables
+  hosts: web1
+  gather_facts: no
+
+  tasks:
+  - name: Host variables of {{ inventory_hostname}}
+    debug:
+      var: hostvars.{{ inventory_hostname}}
+ 
+
+# hostvars - Variables of all hosts scoped in the play
+# ansible-inventory --list
+# hostvars include variables defined:
+#   - under host_vars
+#   - under group_vars
+#   - discovered facts (ansible_facts)
+# Precedence rule for overriding duplicate varaiables
+#   - group -> host -> playbook

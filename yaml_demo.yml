@@ -1,0 +1,45 @@
+---
+# List of items
+# - item1
+# - item2
+# - - item3-1
+#   - item3-2
+#   - item3-3
+
+
+# Hash / Map / Dictionary
+# key1: value1
+# key2:
+#   - value2-1
+#   - value2-2
+#   - value2-3
+# key3:
+#   key3-1: value3-1
+#   key3-2: value3-2
+#   key3-3: value3-3
+
+
+- name: Play-1
+  hosts: Set of hosts Play-1 is meant to handle
+  tasks:
+  - name: Task-1 in Play-1
+    module-X:
+      arg1: argument-1
+  - name: Task-2 in Play-1
+    module-Y:
+      arg1: argument-1
+      arg2: argument-2
+- name: Play-2
+  hosts: Set of hosts Play-2 is meant to handle
+  tasks:
+  - name: Task-1 in Play-2
+    module-Z:
+      arg1: argument-1
+      arg2: argument-2
+      arg3: argument-3
+
+
+
+# Decide on what is going to be the object type (list / dictionary)
+# Same Indentation level
+

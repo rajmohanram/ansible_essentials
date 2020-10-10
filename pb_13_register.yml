@@ -1,0 +1,27 @@
+---
+- name: Demonstrate failed_when
+  hosts: server-1
+  gather_facts: no
+  tasks:
+    - name: Run a CLI command
+      command: echo hello world
+      register: command_result
+    
+    - name: Display registered variable
+      debug:
+        var: command_result
+
+    - name: Demonstrate 'failed_when'
+      debug:
+        msg: FAILED
+      ignore_errors: yes
+      failed_when: "'world' in command_result.stdout"
+
+    - name: Task followd by a FAILED task
+      debug:
+        msg: Task executed
+
+# register the output of tasks and examine it
+# ignore_errors
+# - if a task fail, subsequent tasks are not run
+# - ignore_erros --> to continue with other tasks

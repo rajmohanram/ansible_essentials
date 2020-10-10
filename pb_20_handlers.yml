@@ -1,0 +1,41 @@
+---
+- name: Setup Web server
+  hosts: lamp
+  gather_facts: no
+  ignore_errors: yes
+
+  tasks:
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Copy index.html file
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+      notify:
+        - restart_web
+    
+    - name: Copy nothing -intended to fail
+      copy:
+        src: nothing.html
+        dest: /var/www/html/nothing.html
+  
+  handlers:
+    - name: restart_web
+      service:
+        name: httpd
+        state: restarted
+      
+
+
+# adhoc command to remove httpd
+# ansible lamp -m yum -a "name=httpd state=removed"
+
+# adhoc command to remove index.html
+# ansible lamp -m command -a "rm /var/www/html/index.html"
+
+
+# the task calling the handler should have `changed' state so as to invoke the handler
+# all tasks in the play should have run successfully (or set ignore_erros)

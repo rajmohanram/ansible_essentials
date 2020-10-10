@@ -1,0 +1,64 @@
+---
+- name: Create users
+  hosts: lamp
+  gather_facts: no
+  vars_files:
+    - vars/groups.yml
+
+  tasks:
+    - name: Include variables required for this play
+      include_vars:
+        file: users.yml
+
+    - name: Add groups
+      group:
+        name: "{{ item.groupname }}"
+      loop: "{{ usergroups }}"
+
+    - name: Add users
+      user:
+        name: "{{ item.username }}"
+        groups: "{{ item.groups }}"
+      loop: "{{ users }}"
+
+    - name: Add deployment group members to sudo
+      copy:
+        content: "%deployment ALL=(ALL) NOPASSWD: ALL"
+        dest: /etc/sudoers.d/deployment
+        mode: 0440
+
+    - name: Disable root SSH login
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+      notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      service:
+        name: sshd
+        state: restarted
+      
+
+
+
+
+# adhoc command to get all users
+# ansible all -m shell -a "cat /etc/passwd | cut -d: -f1"
+
+# adhoc command to get all groups
+# ansible all -m shell -a "cat /etc/group | cut -d: -f1"
+
+# adhoc command to check sudoer.d directory
+# ansible all -m shell -a "ls -al /etc/sudoers.d"
+
+# adhoc command to check SSH config file
+# ansible all -m shell -a "cat /etc/ssh/sshd_config | grep PermitRootLogin"
+
+
+
+# cat /etc/passwd | cut -d: -f1
+# cat /etc/passwd | awk -F: '{print $1}'
+# cat /etc/group | cut -d: -f1
+# cat /etc/group | awk -F: '{print $1}'

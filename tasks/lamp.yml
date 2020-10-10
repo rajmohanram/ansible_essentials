@@ -1,0 +1,19 @@
+---
+  - name: Install Web & SQL packages
+    yum:
+      name: 
+        - "{{ web_pkg }}"
+        - "{{ sql_pkg }}"
+      state: latest
+  
+  - name: Start SQL server
+    service:
+      name: "{{ sql_svc }}"
+      state: started
+      enabled: true
+
+  - name: Start Web server
+    service:
+      name: "{{ web_svc }}"
+      state: started
+      enabled: true

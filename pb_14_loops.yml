@@ -1,0 +1,44 @@
+---
+- name: Start multiple services
+  hosts: server-2
+  gather_facts: no
+  vars:
+    services_list:
+      - crond
+      - sshd
+    services_dict:
+      file: vsftpd
+      web: httpd
+  
+  tasks:
+    - name: Check the LIST variable
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ services_list }}"
+
+    - name: Start the services
+      service:
+        name: "{{ item }}"
+        state: started
+      loop: "{{ services_list }}"
+
+    - name: Check the DICT variable
+      debug:
+        msg: "{{ item.value }}"
+      loop: "{{ services_dict | dict2items }}"
+
+    - name: Start the services
+      service:
+        name: "{{ item.value }}"
+        state: started
+      loop: "{{ services_dict | dict2items }}"
+      loop_control:
+        label: "{{ item.value }}" 
+
+
+# my_services
+# - variable - List of 2 services
+# - Loop through each item in the list
+# - item - internal variable representing each element in the list
+# - Start the service
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html

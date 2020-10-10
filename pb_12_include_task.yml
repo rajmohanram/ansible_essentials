@@ -1,0 +1,14 @@
+---
+- name: Play for LAMP servers
+  hosts: lamp
+  gather_facts: no
+  tasks:
+    - name: Include LAMP server tasks
+      include: tasks/lamp.yml
+
+- name: Play for FILE servers
+  hosts: file
+  gather_facts: no
+  tasks:
+    - name: Includ FILE server tasks
+      include: tasks/file.yml

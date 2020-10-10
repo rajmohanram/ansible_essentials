@@ -1,0 +1,13 @@
+---
+- name: Show facts about IP Address
+  hosts: web
+  gather_facts: yes
+  tasks:
+  - name: IPv4 Address fact
+    debug:
+      msg: >
+        Default IPv4 address of {{ inventory_hostname }} is {{ ansible_facts.default_ipv4.address }}
+
+
+# Access specific varible within ansible_facts
+# using dotted notation

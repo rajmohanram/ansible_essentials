@@ -1,0 +1,40 @@
+---
+- name: Create Group & users
+  gather_facts: no
+  hosts: web
+  vars:
+    user: operator1
+    group: support
+
+  tasks:
+  - name: Create group
+    group:
+      name: "{{ group }}"
+      state: present
+    tags: "create user"
+
+  - name: Create user
+    user:
+      name: "{{ user }}"
+      group: "{{ group }}"
+      create_home: yes
+    tags: "create user"
+
+  - name: Delete user
+    user:
+      name: "{{ user }}"
+      state: absent
+      remove: yes
+    tags: "delete user"
+
+  - name: Delete group
+    group:
+      name: "{{ group }}"
+      state: absent
+    tags: "delete user"
+    
+# variable defined in playbook
+# variable -> first item in the line enclose with double quotes
+
+# $ ansible web -m command -a "id operator1"
+# $ ansible web -m command -a "ls -al /home"

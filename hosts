@@ -1,0 +1,12 @@
+web1    ansible_host=server-1
+web2    ansible_host=server-2
+
+file1    ansible_host=server-1
+file2    ansible_host=server-2
+
+
+[web]
+web[1:2]
+
+[file]
+file[1:2]

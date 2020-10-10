@@ -1,0 +1,15 @@
+---
+- name: Create an user
+  hosts: all
+  gather_facts: no
+  vars_files:
+    - secret.yml
+  tasks:
+  - name: Creating user
+    user:
+      name: "{{username }}"
+      password: "{{ pwhash }}"
+
+
+# include variables defined in a file - vars_files
+# Access variables defined in the vault file

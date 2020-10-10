@@ -1,0 +1,18 @@
+---
+- name: Display host variables
+  hosts: web
+  gather_facts: no
+  tasks:
+  - name: Role of {{ inventory_hostname}}
+    debug:
+      msg: "{{ inventory_hostname }} is a {{ role}}"
+  - name: Package name
+    debug:
+      msg: Installing {{ web_pkg }} ...
+  - name: Service name
+    debug:
+      msg: Starting {{ web_svc }} ...
+
+
+# Access host variables
+# Jinja2 templating - to interpolate variables
