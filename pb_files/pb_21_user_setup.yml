@@ -1,0 +1,16 @@
+---
+- name: Create users
+  hosts: web1
+  gather_facts: no
+  vars_files:
+    - ../vars/groups.yml
+
+  tasks:
+    - name: Include variables required for this play
+      include_vars:
+        file: ../vars/users.yml
+
+    - name: Add groups
+      debug:
+        var: item
+      loop: "{{ usergroups }}"

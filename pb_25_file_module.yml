@@ -1,0 +1,84 @@
+---
+- name: File module demo
+  hosts: web1
+  gather_facts: no
+  vars:
+    filepath: /home/rajmohan/testDir/testfile
+
+  tasks:
+
+    - name: Create a new directory
+      file:
+        path: /home/rajmohan/testDir
+        owner: rajmohan
+        group: root
+        state: directory
+    
+    - name: Check if a file exists
+      stat:
+        path: "{{filepath}}"
+      register: filestats
+
+    - name: Create a new file
+      file:
+        path: "{{filepath}}"
+        owner: rajmohan
+        group: root
+        state: touch
+      when: not filestats.stat.exists
+
+    - name: Block for file modification tasks
+      block:
+        - name: Add a line to a file
+          lineinfile:
+            path: "{{filepath}}"
+            line: "[Defaults]"
+              
+        - name: Append a line at the end of the file
+          lineinfile:
+            path: "{{filepath}}"
+            line: remote_user = rajmohan
+
+        - name: Insert before a line
+          lineinfile:
+            path: "{{filepath}}"
+            insertbefore: '^remote_user'
+            line: inventory = ./hosts
+            
+        - name: Insert after a line
+          lineinfile:
+            path: "{{filepath}}"
+            insertafter: '^inventory'
+            line: roles_path = ./roles/
+
+        - name: Add a new line at the end of the line
+          lineinfile:
+            path: "{{filepath}}"
+            line: Garbage Line
+          tags: addnew
+
+        - name: Replace a line
+          lineinfile:
+            path: "{{filepath}}"
+            regexp: '^Garbage'
+            line: Garbage line ~ To be deleted
+          tags: replace
+
+        - name: Remove a line
+          lineinfile:
+            path: "{{filepath}}"
+            regexp: '^Garbage'
+            state: absent
+          tags: remove
+
+      tags: lines
+
+
+
+
+# what do you want to do ?
+# Create a new directory (mkdir -p ~/testDir/testSubdir)
+
+# If Package is installed
+# Find the version and release of the package
+

@@ -1,0 +1,38 @@
+---
+- name: Find version and release of a package
+  hosts: web1
+  gather_facts: no
+  vars:
+    pkg: httpd
+
+  tasks:
+
+    - name: Collecting package facts
+      package_facts:
+        manager: auto
+
+    - debug:
+        var: ansible_facts.packages['{{pkg}}']
+    
+    - set_fact:
+        pkg_installed: "{% if ansible_facts.packages[pkg] is defined %}yes{% else %}no{% endif %}"
+
+    - set_fact: 
+        pkg_version: "{% if pkg_installed %}{{ansible_facts.packages[pkg][0].version}}{% else %}0{% endif %}"
+        pkg_release: "{% if pkg_installed %}{{ansible_facts.packages[pkg][0].release}}{% else %}0{% endif %}"
+      when: ansible_facts.packages[pkg] is defined
+
+    - debug:
+        msg: |
+          "{{pkg_version}}"
+          "{{pkg_release}}"
+      when: ansible_facts.packages[pkg] is defined
+
+
+
+# what do you want to do ?
+# Check if a particular package is installed
+
+# If Package is installed
+# Find the version and release of the package
+
