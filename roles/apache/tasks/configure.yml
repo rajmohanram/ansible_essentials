@@ -1,0 +1,21 @@
+---
+# Configuring apache2
+- name: httpd configuration file
+  template: 
+    src: httpd.conf
+    dest: /etc/httpd/conf/httpd.conf
+  notify: restart httpd service
+  when: ansible_distribution in rpm_distros
+
+- name: apache2 configuration file
+  template: 
+    src: httpd.conf
+    dest: /etc/apache2/apache2.conf
+  notify: restart apache2 service
+  when: ansible_distribution in deb_distros
+
+- name: create the webpage index.html
+  copy: 
+    src: index.html
+    dest: /var/www/html/index.html
+

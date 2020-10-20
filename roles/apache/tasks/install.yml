@@ -1,0 +1,6 @@
+---
+# installing apache2
+- name: installing Apache web server
+  package:
+    name: "{{web_pkg}}"
+    state: present

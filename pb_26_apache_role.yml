@@ -1,0 +1,9 @@
+---
+- name: install apache using role
+  hosts: web1
+  gather_facts: yes
+  
+  roles:
+    - role: apache
+
+

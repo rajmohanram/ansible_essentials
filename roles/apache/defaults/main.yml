@@ -1,0 +1,9 @@
+---
+# defaults file for apache
+rpm_distros:
+  - RedHat
+  - CentOS
+  - Fedora
+deb_distros:
+  - Ubuntu
+  - Debian
