@@ -1,0 +1,15 @@
+---
+- name: Display a list of reachable nodes
+  hosts: web
+  gather_facts: yes
+  gather_subset: min
+
+  
+  tasks:
+    - name: creating an array of reachable nodes
+      set_fact:
+        node_reachable: true
+
+    - debug:
+        msg: Node is reachable
+      when: node_reachable

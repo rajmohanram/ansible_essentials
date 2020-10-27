@@ -1,0 +1,18 @@
+---
+- name: Display a list of reachable nodes
+  hosts: web
+  gather_facts: no
+  
+  tasks:
+    - name: checking node connectivity
+      ping:
+      register: result
+
+    - name: creating an array of reachable nodes
+      set_fact:
+        node_reachable: true
+      when: result.failed == false
+
+    - debug:
+        msg: Node is reachable
+      when: node_reachable
